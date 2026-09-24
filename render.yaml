@@ -22,8 +22,8 @@ services:
       - key: SECRET_KEY
         generateValue: true
       - key: FRONTEND_URL
-        value: https://phishguard-ai.vercel.app
+        value: https://phishguard-ai-sigma.vercel.app
       - key: BACKEND_CORS_ORIGINS
-        value: '["https://phishguard-ai.vercel.app", "http://localhost:5173", "http://localhost:3000"]'
+        value: '["https://phishguard-ai-sigma.vercel.app", "https://phishguard-ai.vercel.app", "http://localhost:5173", "http://localhost:3000"]'
       - key: ALLOWED_HOSTS
         value: '["localhost", "127.0.0.1", ".onrender.com", ".vercel.app"]'

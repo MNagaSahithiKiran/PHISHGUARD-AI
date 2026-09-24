@@ -26,3 +26,24 @@ api_router.include_router(threat_intel_router)
 api_router.include_router(models_router)
 api_router.include_router(admin_router)
 
+
+@api_router.get("/", tags=["API Root"])
+async def api_v1_index():
+    """API v1 discovery endpoint providing system status and route index."""
+    return {
+        "name": "PhishGuard AI API",
+        "version": "1.0.0-phase8",
+        "api_version": "v1",
+        "status": "operational",
+        "health": "/api/v1/health",
+        "endpoints": {
+            "health": "/api/v1/health",
+            "auth_login": "/api/v1/auth/login",
+            "auth_register": "/api/v1/auth/register",
+            "scans": "/api/v1/scans",
+            "analytics": "/api/v1/analytics/overview",
+            "threat_intel": "/api/v1/threat-intel/indicators",
+            "models": "/api/v1/models/transparency",
+        },
+    }
+
