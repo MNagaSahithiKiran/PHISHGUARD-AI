@@ -18,7 +18,7 @@ class ModelRegistry:
             "version": "random_forest_v1",
             "feature_version": "2.0.0",
             "feature_dimension": 34,
-            "artifact_path": str(ARTIFACTS_ROOT / "models_artifacts" / "random_forest_best.joblib"),
+            "artifact_path": str(ARTIFACTS_ROOT / "models" / "random_forest.joblib"),
             "status": "active",
         },
         "WEBSITE_MODEL": {
