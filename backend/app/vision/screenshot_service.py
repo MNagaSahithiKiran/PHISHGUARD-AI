@@ -15,7 +15,12 @@ import time
 import logging
 from typing import Tuple, Optional, Dict, Any
 from pathlib import Path
-from playwright.async_api import async_playwright
+try:
+    from playwright.async_api import async_playwright
+    PLAYWRIGHT_AVAILABLE = True
+except ImportError:
+    async_playwright = None
+    PLAYWRIGHT_AVAILABLE = False
 
 from app.core.security import validate_and_sanitize_url
 from app.analyzers.safety.ssrf_guard import SSRFGuard, SSRFSecurityException
@@ -62,6 +67,10 @@ class ScreenshotService:
         start_time = time.time()
 
         # 2. Render in Isolated Headless Chromium
+        if not PLAYWRIGHT_AVAILABLE:
+            logger.info("Playwright not installed, skipping browser render.")
+            return None, {"error": "Playwright is not installed in the environment."}
+
         try:
             async with async_playwright() as p:
                 browser = await p.chromium.launch(
