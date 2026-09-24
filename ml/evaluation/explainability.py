@@ -6,7 +6,12 @@ Research Rule: SHAP indicates statistical feature association within the model, 
 
 from typing import Dict, Any, List
 import numpy as np
-import shap
+try:
+    import shap
+    SHAP_AVAILABLE = True
+except ImportError:
+    shap = None
+    SHAP_AVAILABLE = False
 
 DISCLAIMER = (
     "Research Notice: SHAP attributions quantify the mathematical contribution of each "
@@ -22,6 +27,9 @@ class ExplainabilityEngine:
         self._init_explainer()
 
     def _init_explainer(self):
+        if not SHAP_AVAILABLE or shap is None:
+            self.explainer = None
+            return
         try:
             # Tree models (RandomForest, XGBoost, DecisionTree)
             if hasattr(self.model, "estimators_") or "XGB" in type(self.model).__name__:
