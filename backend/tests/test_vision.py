@@ -27,7 +27,7 @@ from ml.vision.models.transfer_learning import PhishMobileNetV2
 from ml.vision.evaluation.explainability import GradCAM
 from app.analyzers.safety.ssrf_guard import SSRFGuard, SSRFSecurityException
 from app.vision.screenshot_service import ScreenshotService
-from app.vision.visual_prediction_service import VisualPredictionService
+from app.vision.visual_prediction_service import VisualPredictionService, ARTIFACTS_DIR
 
 
 # =========================================================================
@@ -195,18 +195,22 @@ def test_grad_cam_heatmap_generation():
 # =========================================================================
 def test_visual_prediction_service_sample():
     svc = VisualPredictionService.get_instance()
-    assert svc.is_ready()
+    has_ckpts = (ARTIFACTS_DIR / "transfer_mobilenet_best.pt").exists() or (ARTIFACTS_DIR / "baseline_cnn_best.pt").exists()
 
-    sample_test_img = Path(__file__).resolve().parent.parent.parent / "ml" / "vision" / "datasets" / "processed" / "test" / "phishing" / "netflix-billing-reactivation.com_ac766143.png"
-    if sample_test_img.exists():
-        res = svc.analyze_image(sample_test_img, generate_heatmap=False)
-        assert res["status"] == "completed"
-        assert res["prediction"] in ("phishing", "legitimate")
-        assert 0.0 <= res["phishing_probability"] <= 1.0
-        assert 0.0 <= res["confidence_score"] <= 1.0
-        assert "visual_features" in res
-        assert "evidence" in res
-        assert len(res["evidence"]) > 0
+    if has_ckpts:
+        assert svc.is_ready()
+        sample_test_img = Path(__file__).resolve().parent.parent.parent / "ml" / "vision" / "datasets" / "processed" / "test" / "phishing" / "netflix-billing-reactivation.com_ac766143.png"
+        if sample_test_img.exists():
+            res = svc.analyze_image(sample_test_img, generate_heatmap=False)
+            assert res["status"] == "completed"
+            assert res["prediction"] in ("phishing", "legitimate")
+            assert 0.0 <= res["phishing_probability"] <= 1.0
+            assert 0.0 <= res["confidence_score"] <= 1.0
+            assert "visual_features" in res
+            assert "evidence" in res
+            assert len(res["evidence"]) > 0
+    else:
+        assert not svc.is_ready()
 
 
 # =========================================================================
