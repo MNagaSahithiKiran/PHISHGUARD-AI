@@ -1,0 +1,6 @@
+model,accuracy,precision,recall,f1,roc_auc,false_positive_rate,false_negative_rate,training_time_seconds,inference_time_ms
+Logistic Regression,0.9947,0.9987,0.9907,0.9946,0.9981,0.0013,0.0093,0.027,0.001
+Decision Tree,0.992,0.9881,0.996,0.992,0.9965,0.012,0.004,0.032,0.001
+Random Forest,0.9987,1.0,0.9973,0.9987,0.9999,0.0,0.0027,0.295,0.046
+Support Vector Machine,0.9953,1.0,0.9907,0.9953,0.998,0.0,0.0093,0.089,0.004
+XGBoost,0.9987,0.9987,0.9987,0.9987,1.0,0.0013,0.0013,1.299,0.003

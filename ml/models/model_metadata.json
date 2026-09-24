@@ -1,0 +1,28 @@
+{
+  "selected_model": "Random Forest",
+  "model_file": "random_forest.joblib",
+  "model_sha256": "7cbd005396e23872a0f67e0ddb9b30fe3fffe742f91b57956877352fbe598d49",
+  "preprocessor_sha256": "b946212ee190b813c48368592a006c241365aa0b5dbdb7db155d402b93d51efd",
+  "feature_version": "2.0.0",
+  "timestamp": "2026-09-23T13:13:07.485300+00:00",
+  "selection_rationale": "Selected 'Random Forest' based on the measurable objective function [Score = F1 - (0.5 * FPR)]. It achieves a balanced test F1 of 0.9987, Recall of 0.9973, False Positive Rate of 0.0, and inference latency of 0.046 ms/sample.",
+  "test_metrics": {
+    "accuracy": 0.9987,
+    "precision": 1.0,
+    "recall": 0.9973,
+    "f1": 0.9987,
+    "roc_auc": 0.9999,
+    "confusion_matrix": {
+      "tn": 750,
+      "fp": 0,
+      "fn": 2,
+      "tp": 748
+    },
+    "false_positive_rate": 0.0,
+    "false_negative_rate": 0.0027,
+    "training_time_seconds": 0.295,
+    "inference_time_ms": 0.046,
+    "model_name": "Random Forest"
+  },
+  "random_seed": 42
+}

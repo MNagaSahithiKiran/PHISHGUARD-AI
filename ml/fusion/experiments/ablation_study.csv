@@ -1,0 +1,8 @@
+modality_combination,accuracy,precision,recall,f1_score,roc_auc,false_positive_rate,false_negative_rate,brier_score,true_negatives,false_positives,false_negatives,true_positives
+URL_Only,0.5,0.5,0.8,0.6154,0.56,0.8,0.2,0.3152,1,4,1,4
+Website_Only,1.0,1.0,1.0,1.0,1.0,0.0,0.0,0.0054,5,0,0,5
+Visual_Only,1.0,1.0,1.0,1.0,1.0,0.0,0.0,0.0068,5,0,0,5
+URL_Website,1.0,1.0,1.0,1.0,1.0,0.0,0.0,0.0514,5,0,0,5
+URL_Visual,1.0,1.0,1.0,1.0,1.0,0.0,0.0,0.0434,5,0,0,5
+Website_Visual,1.0,1.0,1.0,1.0,1.0,0.0,0.0,0.0048,5,0,0,5
+URL_Website_Visual (Full),1.0,1.0,1.0,1.0,1.0,0.0,0.0,0.0208,5,0,0,5

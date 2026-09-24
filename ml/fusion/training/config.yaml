@@ -1,0 +1,24 @@
+# PhishGuard AI - Multi-Modal Fusion Configuration
+fusion:
+  model_name: "PhishGuard_MultiModal_Stacking"
+  version: "1.0.0"
+  random_state: 42
+  
+  stacking:
+    C: 1.0
+    solver: "lbfgs"
+    max_iter: 500
+
+  evidence_enhanced:
+    C: 0.5
+    solver: "lbfgs"
+    max_iter: 500
+
+calibration:
+  method: "platt" # Options: platt, isotonic
+  n_bins: 10
+
+decision_policy:
+  version: "1.0.0"
+  default_legitimate_threshold: 0.35
+  default_phishing_threshold: 0.65

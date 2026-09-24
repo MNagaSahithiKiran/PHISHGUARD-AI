@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PhishGuard AI</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="popup-container">
+    <div class="header">
+      <div class="logo-box">
+        <svg class="shield-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+        </svg>
+        <span class="title">PHISHGUARD AI</span>
+      </div>
+      <span class="badge">SENTINEL</span>
+    </div>
+
+    <div class="current-url-box">
+      <div class="url-label">CURRENT TAB URL</div>
+      <div id="tab-url" class="url-text">Detecting active tab...</div>
+    </div>
+
+    <div id="status-card" class="status-card">
+      <div class="status-label">ANALYSIS STATUS</div>
+      <div id="status-text" class="status-text">Ready to scan</div>
+    </div>
+
+    <div class="actions">
+      <button id="scan-btn" class="primary-btn">Inspect Website</button>
+      <a id="dashboard-link" href="http://localhost:5173" target="_blank" class="secondary-btn">Open SOC Dashboard</a>
+    </div>
+  </div>
+  <script src="popup.js"></script>
+</body>
+</html>

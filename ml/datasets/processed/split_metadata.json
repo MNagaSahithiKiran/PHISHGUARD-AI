@@ -1,0 +1,23 @@
+{
+  "random_seed": 42,
+  "total_samples": 10000,
+  "train": {
+    "count": 7000,
+    "percentage": 70.0,
+    "legitimate": 3500,
+    "phishing": 3500
+  },
+  "validation": {
+    "count": 1500,
+    "percentage": 15.0,
+    "legitimate": 750,
+    "phishing": 750
+  },
+  "test": {
+    "count": 1500,
+    "percentage": 15.0,
+    "legitimate": 750,
+    "phishing": 750
+  },
+  "leakage_verified": true
+}

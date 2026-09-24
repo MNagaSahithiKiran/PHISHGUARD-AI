@@ -1,0 +1,11 @@
+sample_id,domain,url,split,label,p_url,p_website,p_visual,has_password_field,has_external_password_form,external_action_count,login_forms_count,external_link_ratio,null_link_ratio,security_header_score,has_centered_card,whitespace_ratio,edge_density,url_length,entropy_score,count_subdomains,has_ip_address,has_punycode
+sample_000_micros0ft-online-security_com,micros0ft-online-security.com,https://micros0ft-online-security.com/auth/login.php,test,1,0.9718,0.9707,0.8273,1,1,1,1,0.0,0.0,0.0,1,0.967,0.0121,52,0.0,0,0,0
+sample_005_netflix-billing-reactivation_com,netflix-billing-reactivation.com,https://netflix-billing-reactivation.com/browse/update-payment,test,1,0.9055,0.9707,0.9302,1,1,1,1,0.0,0.0,0.0,1,0.001,0.0085,62,0.0,0,0,0
+sample_008_dropbox-secure-share-link_com,dropbox-secure-share-link.com,https://dropbox-secure-share-link.com/s/login,test,1,0.5963,0.9707,0.9784,1,1,1,1,0.0,0.0,0.0,1,0.981,0.0152,45,0.0,0,0,0
+sample_013_google-drive-shared-doc-view_net,google-drive-shared-doc-view.net,https://google-drive-shared-doc-view.net/share/doc19382,test,1,0.9555,0.9707,0.9828,1,1,1,1,0.0,0.0,0.0,1,0.137,0.015,55,0.0,0,0,0
+sample_018_yahoo-mail-login-verification_org,yahoo-mail-login-verification.org,https://yahoo-mail-login-verification.org/login,test,1,0.3181,0.9707,0.9877,1,1,1,1,0.0,0.0,0.0,1,0.981,0.0118,47,0.0,0,0,0
+sample_025_wikipedia_org,wikipedia.org,https://en.wikipedia.org/wiki/Computer_security,test,0,0.9877,0.0998,0.0138,0,0,0,0,0.0,0.0,0.0,0,0.904,0.1069,47,0.0,1,0,0
+sample_028_mozilla_org,mozilla.org,https://www.mozilla.org/en-US/,test,0,0.7703,0.0998,0.0303,0,0,0,0,0.0,0.0,0.0,0,0.382,0.037,30,0.0,1,0,0
+sample_032_eff_org,eff.org,https://www.eff.org/,test,0,0.6667,0.0998,0.0146,0,0,0,0,0.0,0.0,0.0,0,0.537,0.0675,20,0.0,1,0,0
+sample_033_mit_edu,mit.edu,https://web.mit.edu/,test,0,0.7067,0.0998,0.0231,0,0,0,0,0.0,0.0,0.0,0,0.424,0.0724,20,0.0,1,0,0
+sample_045_archive_org,archive.org,https://archive.org/,test,0,0.0006,0.0998,0.1742,0,0,0,0,0.0,0.0,0.0,0,0.895,0.0106,20,0.0,0,0,0

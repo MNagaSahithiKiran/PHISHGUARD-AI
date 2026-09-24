@@ -1,0 +1,31 @@
+# PhishGuard AI - Vision Model Training Configuration
+seed: 42
+image_size: [224, 224]
+batch_size: 8
+num_workers: 0
+
+# Baseline CNN Hyperparameters
+baseline_cnn:
+  model_name: "PhishVisionCNN"
+  epochs: 15
+  learning_rate: 0.001
+  weight_decay: 0.0001
+  dropout_rate: 0.4
+  early_stopping_patience: 5
+
+# Transfer Learning (MobileNetV2) Hyperparameters
+transfer_learning:
+  model_name: "PhishMobileNetV2"
+  epochs: 12
+  learning_rate: 0.0003
+  weight_decay: 0.0001
+  dropout_rate: 0.3
+  freeze_backbone_blocks: 14
+  early_stopping_patience: 4
+
+# Augmentation Parameters (Applied strictly to Train split only)
+augmentation:
+  brightness_range: 0.10
+  contrast_range: 0.10
+  rotation_degrees: 2.0
+  translation_percent: 0.02

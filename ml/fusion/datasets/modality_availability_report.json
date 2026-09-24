@@ -1,0 +1,57 @@
+{
+  "total_samples": 49,
+  "unique_registered_domains": 49,
+  "modality_breakdown": {
+    "fully_aligned_all_3": {
+      "total": 49,
+      "train": 33,
+      "val": 6,
+      "test": 10,
+      "phishing_count": 25,
+      "legitimate_count": 24
+    },
+    "url_only": {
+      "total": 0,
+      "train": 0,
+      "val": 0,
+      "test": 0,
+      "phishing_count": 0,
+      "legitimate_count": 0
+    },
+    "url_and_website_only": {
+      "total": 0,
+      "train": 0,
+      "val": 0,
+      "test": 0,
+      "phishing_count": 0,
+      "legitimate_count": 0
+    },
+    "url_and_visual_only": {
+      "total": 0,
+      "train": 0,
+      "val": 0,
+      "test": 0,
+      "phishing_count": 0,
+      "legitimate_count": 0
+    },
+    "other_partial": {
+      "total": 0,
+      "train": 0,
+      "val": 0,
+      "test": 0,
+      "phishing_count": 0,
+      "legitimate_count": 0
+    }
+  },
+  "overall_splits": {
+    "train": 33,
+    "val": 6,
+    "test": 10
+  },
+  "scientific_data_alignment_notes": [
+    "Phase 2 URL dataset (10,000 URLs) provides extensive lexical ground truth without HTML or screenshots.",
+    "Phase 4 screenshot dataset (49 unique domains) was acquired with synchronized rendered HTML, DOM captures, and screenshots.",
+    "Multimodal fusion is evaluated strictly on the fully aligned subset where all 3 modalities are available, with domain-level split separation.",
+    "Fallback policies are validated against partial modality subsets to ensure reliable performance under network, firewall, or timeout failures."
+  ]
+}

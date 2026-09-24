@@ -1,0 +1,5 @@
+strategy,accuracy,precision,recall,f1,roc_auc,brier_score,false_positive_rate,false_negative_rate,true_negatives,false_positives,false_negatives,true_positives,inference_time_ms
+Strategy_A_Weighted_Probability,1.0,1.0,1.0,1.0,1.0,0.0065,0.0,0.0,5,0,0,5,0.022
+Strategy_B_Stacking_Raw,1.0,1.0,1.0,1.0,1.0,0.0208,0.0,0.0,5,0,0,5,0.122
+Strategy_B_Stacking_Calibrated,1.0,1.0,1.0,1.0,1.0,0.0161,0.0,0.0,5,0,0,5,0.091
+Strategy_C_Evidence_Enhanced,1.0,1.0,1.0,1.0,1.0,0.018,0.0,0.0,5,0,0,5,0.08

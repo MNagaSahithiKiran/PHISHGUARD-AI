@@ -1,0 +1,114 @@
+# ==============================================================================
+# PhishGuard AI - Root Git Ignore Configuration
+# ==============================================================================
+
+# Python & Compilation
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Testing & Coverage
+.pytest_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+.coverage.*
+
+# Databases & Runtime State
+*.sqlite
+*.sqlite3
+*.db
+*.log
+phishguard.db
+
+# Virtual Environments
+venv/
+.venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Node & Frontend Build Artifacts
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+frontend/dist/
+frontend/build/
+.eslintcache
+browser-extension/dist/
+
+# Environment Variables & Secrets
+.env
+.env.*
+!.env.example
+!.env.*.example
+!frontend/.env.example
+*.pem
+*.key
+*.crt
+*.pfx
+credentials.json
+secrets/
+*.dump
+*.sql
+*.sql.gz
+*.tar.gz
+
+# Machine Learning Artifacts
+# Heavy checkpoints and raw training data are excluded
+ml/models/*.pkl
+ml/models/*.joblib
+ml/models/*.pt
+ml/models/*.onnx
+ml/vision/models_artifacts/*.pt
+ml/vision/datasets/
+ml/datasets/raw/*.csv
+ml/datasets/raw/*.json
+!ml/datasets/.gitkeep
+
+# Production inference artifacts verified by SHA-256 hash (< 1.5MB total)
+!ml/models/random_forest.joblib
+!ml/models/preprocessor.joblib
+!ml/models/model_metadata.json
+
+# IDE & Editor Files
+.vscode/
+.idea/
+*.swp
+*.swo
+*.sublime-project
+*.sublime-workspace
+
+# Operating System Files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Academic / Non-software documents (enforce software-only repository)
+*.docx
+*.pptx
+*.pdf

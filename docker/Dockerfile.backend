@@ -1,0 +1,63 @@
+# ==============================================================================
+# PhishGuard AI - Production Backend Dockerfile (Multi-stage, Non-Root)
+# ==============================================================================
+
+# Build Stage: Install build dependencies and build wheels
+FROM python:3.11-slim as builder
+
+WORKDIR /build
+
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    gcc \
+    libpq-dev \
+    curl \
+    && rm -rf /var/lib/apt/lists/*
+
+COPY requirements.txt .
+RUN pip install --no-cache-dir --user -r requirements.txt
+
+# Final Runtime Stage: Minimal attack surface
+FROM python:3.11-slim as runtime
+
+WORKDIR /app
+
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1 \
+    PATH="/home/phishguard/.local/bin:${PATH}" \
+    PYTHONPATH="/app"
+
+# Install runtime libraries only (libpq for postgresql)
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    libpq5 \
+    curl \
+    && rm -rf /var/lib/apt/lists/*
+
+# Create unprivileged system user and group
+RUN groupadd -g 10001 phishguard && \
+    useradd -u 10001 -g phishguard -s /bin/bash -m phishguard
+
+# Copy installed Python packages from builder stage
+COPY --from=builder /root/.local /home/phishguard/.local
+
+# Copy application source code
+COPY --chown=phishguard:phishguard . /app
+
+# Ensure storage directories exist with correct permissions
+RUN mkdir -p /app/storage/screenshots /app/storage/reports && \
+    chown -R phishguard:phishguard /app/storage
+
+# Switch to non-root user
+USER phishguard
+
+# Expose internal API port
+EXPOSE 8000
+
+# Health check probe
+HEALTHCHECK --interval=15s --timeout=5s --start-period=10s --retries=3 \
+    CMD curl -f http://localhost:8000/api/v1/health/live || exit 1
+
+# Production entrypoint
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000", "--workers", "4", "--no-access-log"]

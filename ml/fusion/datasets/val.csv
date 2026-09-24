@@ -1,0 +1,7 @@
+sample_id,domain,url,split,label,p_url,p_website,p_visual,has_password_field,has_external_password_form,external_action_count,login_forms_count,external_link_ratio,null_link_ratio,security_header_score,has_centered_card,whitespace_ratio,edge_density,url_length,entropy_score,count_subdomains,has_ip_address,has_punycode
+sample_004_docusign-document-verify-online_com,docusign-document-verify-online.com,https://docusign-document-verify-online.com/access/document,val,1,0.8425,0.9707,0.7537,1,1,1,1,0.0,0.0,0.0,1,0.976,0.0222,59,0.0,0,0,0
+sample_010_citi-online-fraud-prevention_net,citi-online-fraud-prevention.net,https://citi-online-fraud-prevention.net/citiphishing,val,1,0.642,0.9707,0.9921,1,1,1,1,0.0,0.0,0.0,1,0.106,0.013,53,0.0,0,0,0
+sample_023_fedex-parcel-delivery-hold_org,fedex-parcel-delivery-hold.org,https://fedex-parcel-delivery-hold.org/package/update,val,1,0.8472,0.0998,0.9789,0,0,1,0,0.0,0.0,0.0,1,0.898,0.0214,53,0.0,0,0,0
+sample_029_apache_org,apache.org,https://www.apache.org/,val,0,0.763,0.0998,0.036,0,0,0,0,0.0,0.0,0.0,0,0.744,0.0471,23,0.0,1,0,0
+sample_044_openphish_com,openphish.com,https://openphish.com/,val,0,0.0039,0.0998,0.018,0,0,0,0,0.0,0.0,0.0,0,0.892,0.0486,22,0.0,0,0,0
+sample_047_who_int,who.int,https://www.who.int/,val,0,0.6667,0.0998,0.0044,0,0,0,0,0.0,0.0,0.0,0,0.255,0.0505,20,0.0,1,0,0

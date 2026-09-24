@@ -1,0 +1,129 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: phishguard-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-phishguard}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-phishguard_production_secret_pass}
+      POSTGRES_DB: ${POSTGRES_DB:-phishguard_db}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-phishguard} -d ${POSTGRES_DB:-phishguard_db}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - phishguard-backend-net
+
+  redis:
+    image: redis:7-alpine
+    container_name: phishguard-redis
+    restart: unless-stopped
+    command: ["redis-server", "--appendonly", "yes", "--requirepass", "${REDIS_PASSWORD:-phishguard_redis_pass}"]
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "-a", "${REDIS_PASSWORD:-phishguard_redis_pass}", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - phishguard-backend-net
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: ../docker/Dockerfile.backend
+    container_name: phishguard-backend
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    environment:
+      - ENVIRONMENT=production
+      - DEBUG=false
+      - SECRET_KEY=${SECRET_KEY:-phishguard_production_secret_key_minimum_32_chars_ok}
+      - DATABASE_URL=postgresql+asyncpg://${POSTGRES_USER:-phishguard}:${POSTGRES_PASSWORD:-phishguard_production_secret_pass}@postgres:5432/${POSTGRES_DB:-phishguard_db}
+      - REDIS_URL=redis://:${REDIS_PASSWORD:-phishguard_redis_pass}@redis:6379/0
+      - ALLOWED_HOSTS=backend,nginx,localhost,127.0.0.1
+      - BACKEND_CORS_ORIGINS=http://localhost,https://localhost,http://frontend
+      - LOG_FORMAT=json
+      - LOG_LEVEL=INFO
+    volumes:
+      - storage_data:/app/storage
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/api/v1/health/live"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+    networks:
+      - phishguard-backend-net
+
+  worker:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.worker
+    container_name: phishguard-worker
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    environment:
+      - ENVIRONMENT=production
+      - DATABASE_URL=postgresql+asyncpg://${POSTGRES_USER:-phishguard}:${POSTGRES_PASSWORD:-phishguard_production_secret_pass}@postgres:5432/${POSTGRES_DB:-phishguard_db}
+      - REDIS_URL=redis://:${REDIS_PASSWORD:-phishguard_redis_pass}@redis:6379/0
+    volumes:
+      - storage_data:/app/storage
+    deploy:
+      resources:
+        limits:
+          cpus: '2.0'
+          memory: 2G
+    networks:
+      - phishguard-backend-net
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: ../docker/Dockerfile.frontend
+    container_name: phishguard-frontend
+    restart: unless-stopped
+    depends_on:
+      - backend
+    networks:
+      - phishguard-frontend-net
+      - phishguard-backend-net
+
+  nginx:
+    image: nginx:1.25-alpine
+    container_name: phishguard-proxy
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    volumes:
+      - ./docker/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - frontend
+      - backend
+    networks:
+      - phishguard-frontend-net
+      - phishguard-backend-net
+
+volumes:
+  postgres_data:
+  redis_data:
+  storage_data:
+
+networks:
+  phishguard-frontend-net:
+    driver: bridge
+  phishguard-backend-net:
+    driver: bridge

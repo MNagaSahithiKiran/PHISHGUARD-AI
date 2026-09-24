@@ -1,0 +1,14 @@
+{
+  "https://chatgpt.com/c/6ab3b859-af1c-83ee-9fee-5a18a379826c": {
+    "normalized_url": "https://chatgpt.com/c/6ab3b859-af1c-83ee-9fee-5a18a379826c",
+    "domain": "chatgpt.com",
+    "path": "/c/6ab3b859-af1c-83ee-9fee-5a18a379826c",
+    "feature_count": 34
+  },
+  "https://wikipedia.org": {
+    "normalized_url": "https://wikipedia.org",
+    "domain": "wikipedia.org",
+    "path": "",
+    "feature_count": 34
+  }
+}

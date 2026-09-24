@@ -1,0 +1,74 @@
+[
+  {
+    "experiment_id": "EXP-1790169187",
+    "timestamp": "2026-09-23T13:13:07.486144+00:00",
+    "dataset_version": "1.0-clean",
+    "feature_version": "2.0.0",
+    "train_samples": 7000,
+    "val_samples": 1500,
+    "test_samples": 1500,
+    "evaluated_models": [
+      {
+        "model": "Logistic Regression",
+        "accuracy": 0.9947,
+        "precision": 0.9987,
+        "recall": 0.9907,
+        "f1": 0.9946,
+        "roc_auc": 0.9981,
+        "false_positive_rate": 0.0013,
+        "false_negative_rate": 0.0093,
+        "training_time_seconds": 0.027,
+        "inference_time_ms": 0.001
+      },
+      {
+        "model": "Decision Tree",
+        "accuracy": 0.992,
+        "precision": 0.9881,
+        "recall": 0.996,
+        "f1": 0.992,
+        "roc_auc": 0.9965,
+        "false_positive_rate": 0.012,
+        "false_negative_rate": 0.004,
+        "training_time_seconds": 0.032,
+        "inference_time_ms": 0.001
+      },
+      {
+        "model": "Random Forest",
+        "accuracy": 0.9987,
+        "precision": 1.0,
+        "recall": 0.9973,
+        "f1": 0.9987,
+        "roc_auc": 0.9999,
+        "false_positive_rate": 0.0,
+        "false_negative_rate": 0.0027,
+        "training_time_seconds": 0.295,
+        "inference_time_ms": 0.046
+      },
+      {
+        "model": "Support Vector Machine",
+        "accuracy": 0.9953,
+        "precision": 1.0,
+        "recall": 0.9907,
+        "f1": 0.9953,
+        "roc_auc": 0.998,
+        "false_positive_rate": 0.0,
+        "false_negative_rate": 0.0093,
+        "training_time_seconds": 0.089,
+        "inference_time_ms": 0.004
+      },
+      {
+        "model": "XGBoost",
+        "accuracy": 0.9987,
+        "precision": 0.9987,
+        "recall": 0.9987,
+        "f1": 0.9987,
+        "roc_auc": 1.0,
+        "false_positive_rate": 0.0013,
+        "false_negative_rate": 0.0013,
+        "training_time_seconds": 1.299,
+        "inference_time_ms": 0.003
+      }
+    ],
+    "selected_model": "Random Forest"
+  }
+]

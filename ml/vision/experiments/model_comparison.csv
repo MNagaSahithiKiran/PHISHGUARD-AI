@@ -1,0 +1,3 @@
+model,accuracy,precision,recall,f1,roc_auc,false_positive_rate,false_negative_rate,parameters,inference_ms,model_size_mb
+Baseline_CNN,0.9,0.8333,1.0,0.9091,1.0,0.2,0.0,405409,14.44,1.55
+MobileNetV2_Transfer,1.0,1.0,1.0,1.0,1.0,0.0,0.0,2387969,18.06,9.11

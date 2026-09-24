@@ -1,0 +1,21 @@
+{
+  "model_name": "Baseline_CNN",
+  "classes": [
+    "Legitimate",
+    "Phishing"
+  ],
+  "matrix": [
+    [
+      4,
+      1
+    ],
+    [
+      0,
+      5
+    ]
+  ],
+  "true_negative": 4,
+  "false_positive": 1,
+  "false_negative": 0,
+  "true_positive": 5
+}

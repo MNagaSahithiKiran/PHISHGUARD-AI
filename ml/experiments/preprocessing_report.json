@@ -1,0 +1,17 @@
+{
+  "original_rows": 10000,
+  "missing_values_removed": 0,
+  "invalid_labels_removed": 0,
+  "malformed_urls_removed": 0,
+  "duplicate_rows_removed": 0,
+  "final_rows": 10000,
+  "legitimate_count": 5000,
+  "phishing_count": 5000,
+  "class_balance_phishing_pct": 50.0,
+  "missing_value_statistics": {
+    "url": 0,
+    "label": 0,
+    "source": 0,
+    "retrieved_at": 0
+  }
+}

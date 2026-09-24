@@ -1,0 +1,35 @@
+# ==============================================================================
+# PhishGuard AI - Sandboxed Playwright Worker Dockerfile
+# ==============================================================================
+
+FROM mcr.microsoft.com/playwright/python:v1.40.0-jammy
+
+WORKDIR /app
+
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1 \
+    PLAYWRIGHT_BROWSERS_PATH=/ms-playwright \
+    PYTHONPATH=/app
+
+# Install security utilities and build tools
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    curl \
+    libpq-dev \
+    gcc \
+    && rm -rf /var/lib/apt/lists/*
+
+COPY backend/requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Create sandboxed worker user (Playwright base image uses pwuser by default)
+RUN mkdir -p /app/storage/screenshots && \
+    chown -R pwuser:pwuser /app
+
+COPY --chown=pwuser:pwuser backend/ /app/
+
+USER pwuser
+
+HEALTHCHECK --interval=30s --timeout=5s --retries=3 \
+    CMD python -c "import playwright; print('Worker healthy')" || exit 1
+
+CMD ["python", "-m", "app.services.job_queue", "--worker"]

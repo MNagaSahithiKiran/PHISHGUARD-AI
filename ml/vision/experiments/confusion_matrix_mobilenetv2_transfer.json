@@ -1,0 +1,21 @@
+{
+  "model_name": "MobileNetV2_Transfer",
+  "classes": [
+    "Legitimate",
+    "Phishing"
+  ],
+  "matrix": [
+    [
+      5,
+      0
+    ],
+    [
+      0,
+      5
+    ]
+  ],
+  "true_negative": 5,
+  "false_positive": 0,
+  "false_negative": 0,
+  "true_positive": 5
+}

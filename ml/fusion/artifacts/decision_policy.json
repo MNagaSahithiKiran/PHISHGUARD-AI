@@ -1,0 +1,20 @@
+{
+  "version": "1.0.0",
+  "legitimate_upper_threshold": 0.2181,
+  "phishing_lower_threshold": 0.6644,
+  "selection_method": "empirical_validation_optimization",
+  "validation_dataset": "ml/fusion/datasets/val.csv",
+  "classification_policy": {
+    "legitimate": "probability <= 0.2181",
+    "suspicious": "0.2181 < probability < 0.6644",
+    "phishing": "probability >= 0.6644"
+  },
+  "validation_metrics": {
+    "val_samples_count": 6,
+    "val_legitimate_count": 3,
+    "val_phishing_count": 3,
+    "max_legitimate_prob_observed": 0.1681,
+    "min_phishing_prob_observed": 0.7144,
+    "suspicious_margin_width": 0.4463
+  }
+}
