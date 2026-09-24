@@ -436,7 +436,7 @@ PhishGuard AI provides verifiable determinism:
 - **Client-Side SPA Content**: Websites requiring client-side JavaScript rendering to display form fields require Playwright headless browser mode.
 - **Search Engine Index Lag**: Newly registered benign domains (< 48 hours) may return `NO_RESULT` from search providers before index ingestion.
 
---
+---
 
 ## Contributing
 
