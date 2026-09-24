@@ -15,9 +15,13 @@ services:
         value: production
       - key: DEBUG
         value: false
+      - key: ALLOW_SQLITE_IN_PRODUCTION
+        value: "true"
       - key: DATABASE_URL
         value: sqlite+aiosqlite:///./phishguard.db
       - key: SECRET_KEY
         generateValue: true
-      - key: CORS_ORIGINS
+      - key: BACKEND_CORS_ORIGINS
+        value: '["*"]'
+      - key: ALLOWED_HOSTS
         value: '["*"]'

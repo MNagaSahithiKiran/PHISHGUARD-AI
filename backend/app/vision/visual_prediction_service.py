@@ -9,16 +9,27 @@ import logging
 from typing import Dict, Any, Optional
 from pathlib import Path
 from PIL import Image
-import torch
+try:
+    import torch
+    from ml.vision.models.model_factory import create_vision_model
+    from ml.vision.preprocessing.image_preprocessor import (
+        ImagePreprocessor,
+        PREPROCESSING_VERSION,
+    )
+    from ml.vision.features.visual_features import VisualFeatureExtractor
+    from ml.vision.features.layout_features import LayoutFeatureExtractor
+    from ml.vision.evaluation.explainability import GradCAM
+    TORCH_AVAILABLE = True
+except ImportError:
+    torch = None
+    create_vision_model = None
+    ImagePreprocessor = None
+    PREPROCESSING_VERSION = "0.0.0"
+    VisualFeatureExtractor = None
+    LayoutFeatureExtractor = None
+    GradCAM = None
+    TORCH_AVAILABLE = False
 
-from ml.vision.models.model_factory import create_vision_model
-from ml.vision.preprocessing.image_preprocessor import (
-    ImagePreprocessor,
-    PREPROCESSING_VERSION,
-)
-from ml.vision.features.visual_features import VisualFeatureExtractor
-from ml.vision.features.layout_features import LayoutFeatureExtractor
-from ml.vision.evaluation.explainability import GradCAM
 from app.vision.visual_evidence_service import generate_visual_evidence
 
 logger = logging.getLogger("phishguard.vision.prediction")
@@ -32,12 +43,13 @@ class VisualPredictionService:
 
     def __init__(self, device: str = "cpu"):
         self.device = device
-        self.preprocessor = ImagePreprocessor()
+        self.preprocessor = ImagePreprocessor() if ImagePreprocessor else None
         self.model = None
         self.model_name = "PhishMobileNetV2"
         self.model_version = "1.0.0"
         self.target_layer = None
-        self._load_model()
+        if TORCH_AVAILABLE:
+            self._load_model()
 
     @classmethod
     def get_instance(cls) -> "VisualPredictionService":

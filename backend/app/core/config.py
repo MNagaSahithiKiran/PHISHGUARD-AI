@@ -78,6 +78,8 @@ class Settings(BaseSettings):
     RETENTION_DAYS_SCREENSHOTS: int = 30
     RETENTION_DAYS_AUDIT_LOGS: int = 90
 
+    ALLOW_SQLITE_IN_PRODUCTION: bool = False
+
     @model_validator(mode="after")
     def validate_production_environment(self) -> "Settings":
         """Fail fast if required production secrets or security postures are violated."""
@@ -97,22 +99,23 @@ class Settings(BaseSettings):
             if self.DEBUG:
                 raise ValueError("FAIL FAST: DEBUG must be set to False in production.")
 
-            # 3. Forbid SQLite in production
-            if self.DATABASE_URL.startswith("sqlite"):
+            # 3. Forbid SQLite in production unless explicitly permitted (e.g. cloud demo)
+            if not self.ALLOW_SQLITE_IN_PRODUCTION and self.DATABASE_URL.startswith("sqlite"):
                 raise ValueError(
                     "FAIL FAST: SQLite is not permitted in production. Configure a production "
-                    "PostgreSQL DATABASE_URL (postgresql+asyncpg://...)."
+                    "PostgreSQL DATABASE_URL (postgresql+asyncpg://...) or set ALLOW_SQLITE_IN_PRODUCTION=true."
                 )
 
-            # 4. Forbid wildcard hosts or CORS in production
-            if "*" in self.ALLOWED_HOSTS:
-                raise ValueError(
-                    "FAIL FAST: Wildcard '*' in ALLOWED_HOSTS is forbidden in production."
-                )
-            if "*" in self.BACKEND_CORS_ORIGINS:
-                raise ValueError(
-                    "FAIL FAST: Wildcard '*' in BACKEND_CORS_ORIGINS is forbidden in production."
-                )
+            # 4. Forbid wildcard hosts or CORS in production unless explicitly permitted for cloud demo
+            if not self.ALLOW_SQLITE_IN_PRODUCTION:
+                if "*" in self.ALLOWED_HOSTS:
+                    raise ValueError(
+                        "FAIL FAST: Wildcard '*' in ALLOWED_HOSTS is forbidden in production."
+                    )
+                if "*" in self.BACKEND_CORS_ORIGINS:
+                    raise ValueError(
+                        "FAIL FAST: Wildcard '*' in BACKEND_CORS_ORIGINS is forbidden in production."
+                    )
 
         return self
 
