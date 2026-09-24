@@ -39,7 +39,7 @@ async def init_db() -> None:
     """Initializes tables for development/testing if they don't already exist.
     In production, database migrations (Alembic) manage schema lifecycle without destructive actions.
     """
-    if settings.ENVIRONMENT != "production":
+    if settings.ENVIRONMENT != "production" or settings.ALLOW_SQLITE_IN_PRODUCTION:
         async with engine.begin() as conn:
             await conn.run_sync(Base.metadata.create_all)
             if database_url.startswith("sqlite"):

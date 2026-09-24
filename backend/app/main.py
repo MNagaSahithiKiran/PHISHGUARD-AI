@@ -192,13 +192,19 @@ async def global_exception_handler(request: Request, exc: Exception):
     else:
         detail_msg = str(exc)
 
-    return JSONResponse(
+    response = JSONResponse(
         status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
         content={
             "detail": detail_msg,
             "correlation_id": cid,
         },
     )
+    origin = request.headers.get("origin")
+    if origin:
+        response.headers["Access-Control-Allow-Origin"] = origin
+        response.headers["Access-Control-Allow-Credentials"] = "true"
+        response.headers["Vary"] = "Origin"
+    return response
 
 
 frontend_dist = Path(__file__).resolve().parent.parent.parent / "frontend" / "dist"
