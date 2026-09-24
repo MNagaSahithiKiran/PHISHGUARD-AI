@@ -8,7 +8,20 @@ CRITICAL COMPLIANCE: Never silently load arbitrary 'latest' files without versio
 from typing import Dict, Any, Optional
 from pathlib import Path
 
-ARTIFACTS_ROOT = Path(__file__).resolve().parent.parent.parent.parent / "ml"
+def _resolve_artifacts_root() -> Path:
+    candidates = [
+        Path(__file__).resolve().parent.parent.parent.parent / "ml",  # <repo_root>/ml
+        Path(__file__).resolve().parent.parent.parent / "ml",         # <repo_root>/backend/ml
+        Path.cwd() / "ml",
+        Path.cwd().parent / "ml",
+    ]
+    for c in candidates:
+        if (c / "models" / "random_forest.joblib").exists():
+            return c
+    return candidates[0]
+
+
+ARTIFACTS_ROOT = _resolve_artifacts_root()
 
 
 class ModelRegistry:

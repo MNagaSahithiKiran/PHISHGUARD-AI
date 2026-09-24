@@ -300,12 +300,11 @@ Dashboard runs at `http://localhost:5173`.
 Run all test suites locally:
 
 ```bash
-# 1. Backend Pytest Suite (86 tests)
-cd backend
-..\.venv\Scripts\python.exe -m pytest tests/ -q
+# 1. Backend Pytest Suite (102 tests)
+python -m pytest -q
 
 # 2. Frontend Production Build & TypeScript Check
-cd ../frontend
+cd frontend
 npm run build
 
 # 3. Browser Extension Tests (21 Vitest tests)
@@ -352,22 +351,30 @@ The frontend is fully configured for Vercel SPA hosting:
    - **Framework Preset**: `Vite`
    - **Build Command**: `npm run build`
    - **Output Directory**: `dist`
-3. Set Environment Variable:
-   - `VITE_API_BASE_URL`: `https://your-deployed-backend-api.com`
-4. Deploy. The `frontend/vercel.json` rewrite file ensures direct navigation to all routes (`/scanner`, `/dashboard`, `/analytics`, `/scans/:id`) works seamlessly.
+   - **Install Command**: `npm install`
+3. Set Environment Variable in Vercel Project Settings:
+   - `VITE_API_BASE_URL`: `https://your-deployed-backend-api.onrender.com`
+4. Deploy. The `frontend/vercel.json` rewrite file ensures direct navigation to all routes (`/scanner`, `/dashboard`, `/analytics`, `/scans/:id`) works seamlessly without 404 errors.
 
-### Backend Deployment
+### Backend Deployment (Render)
 
-Deploy the backend to Render, Railway, AWS ECS, or DigitalOcean:
+Deploy the FastAPI backend to Render using the included `render.yaml` or through the Render Dashboard:
 
-- **Command**: `python -m uvicorn app.main:app --host 0.0.0.0 --port ${PORT}`
-- **Required Environment Variables**:
-  - `DATABASE_URL`: Managed PostgreSQL connection string
-  - `REDIS_URL`: Managed Redis connection string
-  - `SECRET_KEY`: Cryptographically secure 32+ character key
-  - `BACKEND_CORS_ORIGINS`: Comma-separated list including your Vercel URL
-  - `ENVIRONMENT`: `production`
-  - `DEBUG`: `false`
+1. Connect the repository in the Render Dashboard.
+2. Create a new **Web Service**:
+   - **Root Directory**: `backend`
+   - **Environment**: `Python 3`
+   - **Build Command**: `pip install -r requirements.txt`
+   - **Start Command**: `uvicorn app.main:app --host 0.0.0.0 --port $PORT`
+   - **Health Check Path**: `/health`
+3. Set Environment Variables in Render:
+   - `ENVIRONMENT`: `production`
+   - `DEBUG`: `false`
+   - `SECRET_KEY`: `<generate-secure-random-32+-char-secret>`
+   - `FRONTEND_URL`: `https://<your-vercel-app>.vercel.app`
+   - `ALLOWED_HOSTS`: `["localhost", "127.0.0.1", ".onrender.com", ".vercel.app"]`
+   - `ALLOW_SQLITE_IN_PRODUCTION`: `true` (for instant evaluation) OR provide a managed `DATABASE_URL` (PostgreSQL)
+4. Copy your live Render URL (e.g. `https://phishguard-api.onrender.com`) and paste it as `VITE_API_BASE_URL` in your Vercel project settings.
 
 ---
 

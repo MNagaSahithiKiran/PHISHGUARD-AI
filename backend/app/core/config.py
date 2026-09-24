@@ -23,6 +23,7 @@ class Settings(BaseSettings):
     ADMIN_DEFAULT_PASSWORD: str = "Admin@PhishGuard2026!"
 
     # CORS
+    FRONTEND_URL: Optional[str] = None
     BACKEND_CORS_ORIGINS: Union[List[str], str] = [
         "http://localhost:5173",
         "http://127.0.0.1:5173",
@@ -116,6 +117,13 @@ class Settings(BaseSettings):
                     raise ValueError(
                         "FAIL FAST: Wildcard '*' in BACKEND_CORS_ORIGINS is forbidden in production."
                     )
+
+        # Register explicit FRONTEND_URL in CORS origins if provided
+        if self.FRONTEND_URL:
+            clean_origin = self.FRONTEND_URL.strip().rstrip("/")
+            if clean_origin and clean_origin not in self.BACKEND_CORS_ORIGINS:
+                if isinstance(self.BACKEND_CORS_ORIGINS, list):
+                    self.BACKEND_CORS_ORIGINS.append(clean_origin)
 
         return self
 
